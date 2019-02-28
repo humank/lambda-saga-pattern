@@ -1,8 +1,8 @@
 'use strict';
 
-const co       = require('co');
-const AWS      = require('aws-sdk');
-const Promise  = require('bluebird');
+const co = require('co');
+const AWS = require('aws-sdk');
+const Promise = require('bluebird');
 const dynamodb = Promise.promisifyAll(new AWS.DynamoDB.DocumentClient());
 
 /* input example:
@@ -19,25 +19,24 @@ const dynamodb = Promise.promisifyAll(new AWS.DynamoDB.DocumentClient());
  *    rental_to: some_date
  *  }
  */
-module.exports.handler = co.wrap(function* (input, context, callback) {
+module.exports.handler = co.wrap(function*(input, context, callback) {
+
+  function BookFlightError(message) {
+    this.message = message;
+  }
+  BookFlightError.prototype = new Error();
+
   if (Math.random() < 0.6) {
     //callback("error");
-    
-    function BookFlightError(message) {
-        this.message = message;
-    }
-    BookFlightError.prototype = new Error();
-    
-  if (input.breakAtRental) {
     const error = new BookFlightError('can not book flight');
- 
-   callback(error);
-    
-  } else {
+    callback(error);
+
+  }
+  else {
     let req = {
       TableName: "flight_bookings",
-      Key: { 
-        trip_id : input.trip_id
+      Key: {
+        trip_id: input.trip_id
       }
     }
     yield dynamodb.deleteAsync(req);

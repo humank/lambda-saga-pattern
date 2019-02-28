@@ -1,8 +1,8 @@
 'use strict';
 
-const co       = require('co');
-const AWS      = require('aws-sdk');
-const Promise  = require('bluebird');
+const co = require('co');
+const AWS = require('aws-sdk');
+const Promise = require('bluebird');
 const dynamodb = Promise.promisifyAll(new AWS.DynamoDB.DocumentClient());
 
 /* input example:
@@ -19,28 +19,26 @@ const dynamodb = Promise.promisifyAll(new AWS.DynamoDB.DocumentClient());
  *    rental_to: some_date
  *  }
  */
-module.exports.handler = co.wrap(function* (input, context, callback) {
+module.exports.handler = co.wrap(function*(input, context, callback) {
+  function BookRentalError(message) {
+    this.message = message;
+  }
+  BookRentalError().prototype = new Error();
+
   if (input.breakAtRental) {
-   //callback("error");
-   
-   function BookRentalError(message) {
-        this.message = message;
-    }
-    BookRentalError().prototype = new Error();
-    
-  if (input.breakAtRental) {
+    //callback("error");
     const error = new BookRentalError('can not book rental');
- 
-   callback(error);
-   
-  } else {
+    callback(error);
+
+  }
+  else {
     let req = {
       TableName: "rental_bookings",
-      Item: { 
-        trip_id     : input.trip_id,
-        rental      : input.rental,
-        rental_from : input.rental_from,
-        rental_to   : input.rental_to
+      Item: {
+        trip_id: input.trip_id,
+        rental: input.rental,
+        rental_from: input.rental_from,
+        rental_to: input.rental_to
       }
     }
     yield dynamodb.putAsync(req);
