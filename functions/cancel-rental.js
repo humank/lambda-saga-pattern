@@ -20,15 +20,9 @@ const dynamodb = Promise.promisifyAll(new AWS.DynamoDB.DocumentClient());
  *  }
  */
 module.exports.handler = co.wrap(function*(input, context, callback) {
-  function BookRentalError(message) {
-    this.message = message;
-  }
-  BookRentalError().prototype = new Error();
 
   if (Math.random() < 0.6) {
-    //callback("error");
-    const error = new BookRentalError('can not book rental');
-    callback(error);
+    callback("error");
   }
   else {
     let req = {

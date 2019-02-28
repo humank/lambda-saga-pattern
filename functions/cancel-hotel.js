@@ -21,16 +21,8 @@ const dynamodb = Promise.promisifyAll(new AWS.DynamoDB.DocumentClient());
  */
 module.exports.handler = co.wrap(function*(input, context, callback) {
 
-  function BookHotelError(message) {
-    this.message = message;
-  }
-  BookHotelError().prototype = new Error();
-
   if (Math.random() < 0.6) {
-    //callback("error");
-    const error = new BookHotelError('can not book hotel');
-    callback(error);
-
+    callback("error");
   }
   else {
     let req = {
