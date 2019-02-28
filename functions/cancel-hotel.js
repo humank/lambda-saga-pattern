@@ -20,7 +20,7 @@ const dynamodb = Promise.promisifyAll(new AWS.DynamoDB.DocumentClient());
  *  }
  */
 module.exports.handler = co.wrap(function* (input, context, callback) {
-  if (Math.random() < 0.3) {
+  if (Math.random() < 0.6) {
     callback("Internal Server Error");
   } else {
     let req = {

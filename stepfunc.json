@@ -1,0 +1,87 @@
+{
+  "Comment": "Applying the Saga pattern with AWS Lambda and Step Functions",
+  "StartAt": "BookHotel",
+  "States": {
+    "BookHotel": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-west-2:584518143473:function:lambda-saga-dev-book-hotel",
+      "Catch": [        
+        {
+          "ErrorEquals": ["HandledError"],
+          "ResultPath": "$.BookHotelError",
+          "Next": "CancelHotel"
+        }
+      ],
+      "ResultPath": "$.BookHotelResult",
+      "Next":"BookFlight"
+    },
+    "BookFlight": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-west-2:584518143473:function:lambda-saga-dev-book-flight",
+      "Catch": [        
+        {
+          "ErrorEquals": ["HandledError"],
+          "ResultPath": "$.BookFlightError",
+          "Next": "CancelFlight"
+        }
+      ],
+      "ResultPath": "$.BookFlightResult",
+      "Next":"BookRental"
+    },
+    "BookRental": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-west-2:584518143473:function:lambda-saga-dev-book-rental",
+      "Catch": [        
+        {
+          "ErrorEquals": ["HandledError"],
+          "ResultPath": "$.BookRentalError",
+          "Next": "CancelRental"
+        }
+      ],
+      "ResultPath": "$.BookRentalResult",
+      "End": true
+    },
+    "CancelHotel": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-west-2:584518143473:function:lambda-saga-dev-cancel-hotel",
+      "Catch": [        
+        {
+          "ErrorEquals": ["HandledError"],
+          "ResultPath": "$.CancelHotelError",
+          "Next": "CancelHotel"
+        }
+      ],
+      "ResultPath": "$.CancelHotelResult",
+      "Next":"Fail"
+    },
+    "CancelFlight": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-west-2:584518143473:function:lambda-saga-dev-cancel-flight",
+      "Catch": [        
+        {
+          "ErrorEquals": ["HandledError"],
+          "ResultPath": "$.CancelFlightError",
+          "Next": "CancelFlight"
+        }
+      ],
+      "ResultPath": "$.CancelFlightResult",
+      "Next":"CancelHotel"
+    },
+    "CancelRental": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-west-2:584518143473:function:lambda-saga-dev-cancel-rental",
+      "Catch": [        
+        {
+          "ErrorEquals": ["HandledError"],
+          "ResultPath": "$.CancelRentalError",
+          "Next": "CancelRental"
+        }
+      ],
+      "ResultPath": "$.CancelRentalResult",
+      "Next":"CancelFlight"
+    },
+    "Fail": {
+      "Type": "Fail"
+    }
+  }
+}

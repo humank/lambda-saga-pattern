@@ -20,7 +20,7 @@ const dynamodb = Promise.promisifyAll(new AWS.DynamoDB.DocumentClient());
  *  }
  */
 module.exports.handler = co.wrap(function* (input, context, callback) {
-  if (input.fail_book_rental) {
+  if (input.breakAtRental) {
     callback("Internal Server Error");
   } else {
     let req = {
