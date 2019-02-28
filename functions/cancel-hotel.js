@@ -21,7 +21,18 @@ const dynamodb = Promise.promisifyAll(new AWS.DynamoDB.DocumentClient());
  */
 module.exports.handler = co.wrap(function* (input, context, callback) {
   if (Math.random() < 0.6) {
-    callback("Internal Server Error");
+    //callback("error");
+    
+    function BookHotelError(message) {
+        this.message = message;
+    }
+    BookHotelError().prototype = new Error();
+    
+  if (input.breakAtRental) {
+    const error = new BookHotelError('can not book hotel');
+ 
+   callback(error);
+    
   } else {
     let req = {
       TableName: "hotel_bookings",

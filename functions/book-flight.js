@@ -21,7 +21,18 @@ const dynamodb = Promise.promisifyAll(new AWS.DynamoDB.DocumentClient());
  */
 module.exports.handler = co.wrap(function* (input, context, callback) {
   if (input.fail_book_flight) {
-    callback("Internal Server Error");
+    //callback("error");
+    
+    function BookFlightError(message) {
+        this.message = message;
+    }
+    BookFlightError.prototype = new Error();
+    
+  if (input.breakAtRental) {
+    const error = new BookFlightError('can not book flight');
+ 
+   callback(error);
+    
   } else {
     let req = {
       TableName: "flight_bookings",

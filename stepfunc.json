@@ -7,7 +7,7 @@
       "Resource": "arn:aws:lambda:us-west-2:584518143473:function:lambda-saga-dev-book-hotel",
       "Catch": [        
         {
-          "ErrorEquals": ["HandledError"],
+          "ErrorEquals": ["States.ALL"],
           "ResultPath": "$.BookHotelError",
           "Next": "CancelHotel"
         }
@@ -20,7 +20,7 @@
       "Resource": "arn:aws:lambda:us-west-2:584518143473:function:lambda-saga-dev-book-flight",
       "Catch": [        
         {
-          "ErrorEquals": ["HandledError"],
+          "ErrorEquals": ["States.ALL"],
           "ResultPath": "$.BookFlightError",
           "Next": "CancelFlight"
         }
@@ -33,7 +33,7 @@
       "Resource": "arn:aws:lambda:us-west-2:584518143473:function:lambda-saga-dev-book-rental",
       "Catch": [        
         {
-          "ErrorEquals": ["HandledError"],
+          "ErrorEquals": ["States.ALL"],
           "ResultPath": "$.BookRentalError",
           "Next": "CancelRental"
         }
@@ -46,7 +46,7 @@
       "Resource": "arn:aws:lambda:us-west-2:584518143473:function:lambda-saga-dev-cancel-hotel",
       "Catch": [        
         {
-          "ErrorEquals": ["HandledError"],
+          "ErrorEquals": ["States.ALL"],
           "ResultPath": "$.CancelHotelError",
           "Next": "CancelHotel"
         }
@@ -59,7 +59,7 @@
       "Resource": "arn:aws:lambda:us-west-2:584518143473:function:lambda-saga-dev-cancel-flight",
       "Catch": [        
         {
-          "ErrorEquals": ["HandledError"],
+          "ErrorEquals": ["States.ALL"],
           "ResultPath": "$.CancelFlightError",
           "Next": "CancelFlight"
         }
@@ -72,7 +72,7 @@
       "Resource": "arn:aws:lambda:us-west-2:584518143473:function:lambda-saga-dev-cancel-rental",
       "Catch": [        
         {
-          "ErrorEquals": ["HandledError"],
+          "ErrorEquals": ["States.ALL"],
           "ResultPath": "$.CancelRentalError",
           "Next": "CancelRental"
         }
