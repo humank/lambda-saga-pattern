@@ -1,0 +1,13 @@
+{
+    "trip_id": "0000000002",
+    "depart": "london",
+    "depart_at": "2019-03-01",
+    "arrive": "dublin",
+    "arrive_at": "2019-02-26",
+    "hotel": "holiday inn",
+    "check_in": "2019-02-26",
+    "check_out": "2019-03-01",
+    "rental": "volvo",
+    "rental_from": "2019-02-26",
+    "rental_to": "2019-03-01"
+}

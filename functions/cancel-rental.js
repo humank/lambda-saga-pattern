@@ -23,7 +23,7 @@ module.exports.handler = co.wrap(function*(input, context, callback) {
   function BookRentalError(message) {
     this.message = message;
   }
-  BookRentalError().prototype = new Error();
+  BookRentalError.prototype = new Error();
 
   if (Math.random() < 0.6) {
     //callback("error");

@@ -24,7 +24,7 @@ module.exports.handler = co.wrap(function*(input, context, callback) {
   function BookHotelError(message) {
     this.message = message;
   }
-  BookHotelError().prototype = new Error();
+  BookHotelError.prototype = new Error();
 
   if (input.fail_book_hotel) {
     //callback("error");
