@@ -21,15 +21,16 @@ const dynamodb = Promise.promisifyAll(new AWS.DynamoDB.DocumentClient());
  */
 module.exports.handler = co.wrap(function*(input, context, callback) {
 
+<<<<<<< HEAD
   function BookHotelError(message) {
     this.message = message;
   }
   BookHotelError.prototype = new Error();
 
+=======
+>>>>>>> 46d0190750fab5b701308959154437f39b32d417
   if (input.fail_book_hotel) {
-    //callback("error");
-    const error = new BookHotelError('can not book hotel');
-    callback(error);
+    callback("error");
 
   }
   else {

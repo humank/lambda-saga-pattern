@@ -21,18 +21,8 @@ const dynamodb = Promise.promisifyAll(new AWS.DynamoDB.DocumentClient());
  */
 module.exports.handler = co.wrap(function*(input, context, callback) {
 
-  function BookFlightError(message) {
-    this.message = message;
-  }
-  
-  BookFlightError.prototype = new Error();
-
   if (input.fail_book_flight) {
-    //callback("error");
-
-    const error = new BookFlightError('can not book flight');
-
-    callback(error);
+    callback("error");
 
   }
   else {
