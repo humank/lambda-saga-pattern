@@ -21,12 +21,6 @@ const dynamodb = Promise.promisifyAll(new AWS.DynamoDB.DocumentClient());
  */
 module.exports.handler = co.wrap(function*(input, context, callback) {
 
-  function BookRentalError(message) {
-    this.message = message;
-  }
-  BookRentalError.prototype = new Error();
-
-
   if (input.breakAtRental) {
     callback("error");
   
