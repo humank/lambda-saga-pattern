@@ -1,5 +1,6 @@
 #!/bin/bash
+accountid=$(aws sts get-caller-identity --output text --query 'Account')
+region=$(aws configure get region)
+name=demo-"$(date +'%Y%m%d%H%M%S')"
 
-name=kim-"$(date +'%Y%m%d%H%M%S')"
-
-aws stepfunctions start-execution --state-machine-arn arn:aws:states:us-west-2:584518143473:stateMachine:sagapattern --name $name --input file://$1
+aws stepfunctions start-execution --state-machine-arn arn:aws:states:$region:$accountid:stateMachine:sagapattern --name $name --input file://$1
